@@ -45,7 +45,17 @@ cd ./backend
 pip install -r requirements.txt
 ```
 
-4. Run the server. It should launch on http://localhost:5000/
+4. Initialize the SQLite database (this can be done later to reset the database)
+```bash
+python database/init_db.py
+```
+
+5. Run the server. It should launch on http://localhost:5000/
 ```bash
 python app.py
+```
+
+6. Tests can also be run with:
+```bash
+pytest -v
 ```
