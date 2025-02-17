@@ -15,7 +15,7 @@
           <button type="submit">Login</button>
           <div class="footer-links">
             <a href="#">Forgot Password?</a>
-            <a href="#">Sign Up</a>
+            <a href="/register">Sign Up</a>
           </div>
         </form>
       </div>
