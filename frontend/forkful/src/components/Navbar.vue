@@ -1,38 +1,52 @@
 <template>
     <nav class="navbar">
-      <RouterLink class="nav-link" to="/">Home</RouterLink>
-      <RouterLink class="nav-link" to="/login">Login</RouterLink>
-      <RouterLink class="nav-link" to="/register">Register</RouterLink>
-      <RouterLink class="nav-link" to="/feed">Feed</RouterLink>
-      <RouterLink class="nav-link" to="/profile">Profile</RouterLink>
-      <RouterLink class="nav-link" to="/post">Post</RouterLink>
-        <img :src="forfulLogo" alt="Forkful Logo" style="width: 70px; height: 70px;" />
+      <img :src="forfulLogo" alt="Forkful Logo" class="logo" />
+      <div class="nav-links">
+        <RouterLink class="nav-link" to="/">Home</RouterLink>
+        <RouterLink class="nav-link" to="/login">Login</RouterLink>
+        <RouterLink class="nav-link" to="/register">Register</RouterLink>
+        <RouterLink class="nav-link" to="/feed">Feed</RouterLink>
+        <RouterLink class="nav-link" to="/profile">Profile</RouterLink>
+        <RouterLink class="nav-link" to="/post">Post</RouterLink>
+      </div>
     </nav>
   </template>
   
   <script setup lang="ts">
-    import forfulLogo from '../assets/forkfullogo.png';
+  import forfulLogo from '../assets/forkfullogo.png';
   </script>
   
   <style scoped>
   .navbar {
-    position: fixed;    
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;       
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 1rem 2rem;
+    align-items: center;   
+    justify-content: flex-start;
+    padding: 0.5rem 1rem; 
     background: linear-gradient(90deg, #161d23, #0f444c);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    z-index: 1000;         
+    z-index: 1000;
+  }
+  
+  .logo {
+    width: 50px;     
+    height: 50px;
+    margin-right: 30rem;  
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 1rem;
+    font-weight: normal;
   }
   
   .nav-link {
     color: #d2e1cc;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.6rem;
     border-radius: 4px;
     transition: all 0.3s ease;
     position: relative;
@@ -40,8 +54,7 @@
   
   .nav-link:hover {
     background-color: #114538;
-    color: #d2e1cc;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
   
   .nav-link::after {
@@ -61,7 +74,6 @@
   
   .router-link-active {
     background-color: #114538;
-    color: #d2e1cc;
   }
   </style>
   
