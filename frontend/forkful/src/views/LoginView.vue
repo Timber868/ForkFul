@@ -25,10 +25,13 @@
   <script setup lang="ts">
     import {ref} from "vue";
     import axios from "axios";
+    import { useRouter } from "vue-router";
 
     const username = ref("");
     const password = ref("")
     const errorMessage = ref("")
+
+    const router = useRouter();
 
     const handleLogin = async () => {
         try {
@@ -39,6 +42,10 @@
 
         console.log("Login succesful!")
         console.log(response.data)
+
+        if (response.status === 200) {
+          router.replace('/feed')
+        }
 
         } catch (error) {
             console.error("Login Error:, ", error)
