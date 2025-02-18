@@ -3,14 +3,14 @@
       <div class="login-card">
         <h1>Forkful Login</h1>
         
-        <form>
+        <form @submit.prevent="handleLogin">
           <div class="input-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="Enter your email" />
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username" v-model="username"/>
           </div>
           <div class="input-group">
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" />
+            <input type="password" id="password" placeholder="Enter your password" v-model="password"/>
           </div>
           <button type="submit">Login</button>
           <div class="footer-links">
@@ -23,6 +23,29 @@
   </template>
   
   <script setup lang="ts">
+    import {ref} from "vue";
+    import axios from "axios";
+
+    const username = ref("");
+    const password = ref("")
+    const errorMessage = ref("")
+
+    const handleLogin = async () => {
+        try {
+            const response = await axios.post("http://localhost:5000/auth/login", {
+            username: username.value,
+            password: password.value
+        }, {withCredentials: true} )
+
+        console.log("Login succesful!")
+        console.log(response.data)
+
+        } catch (error) {
+            console.error("Login Error:, ", error)
+        }
+
+    }
+
   </script>
   
   <style scoped>
