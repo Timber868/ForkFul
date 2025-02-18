@@ -34,24 +34,36 @@
     const router = useRouter();
 
     const handleLogin = async () => {
-        try {
-            const response = await axios.post("http://localhost:5000/auth/login", {
+    try {
+        const response = await axios.post("http://localhost:5000/auth/login", {
             username: username.value,
             password: password.value
-        }, {withCredentials: true} )
+        }, {withCredentials: true});
 
-        console.log("Login succesful!")
-        console.log(response.data)
+        console.log("Login successful!");
+        console.log(response.data);
 
         if (response.status === 200) {
-          router.replace('/feed')
+            router.replace('/feed');
         }
 
-        } catch (error) {
-            console.error("Login Error:, ", error)
+    } catch (error: any) {
+        if (error.response) {
+            // Server responded with an error
+            errorMessage.value = error.response.data.message || "An error occurred.";
+        } else if (error.request) {
+            // Request was made but no response received
+            errorMessage.value = "No response from server. Please try again.";
+        } else {
+            // Other errors (e.g., network issues)
+            errorMessage.value = error.message;
         }
 
+        console.error("Login Error: ", errorMessage.value);
+        alert(`Error logging in: ${errorMessage.value}`);
     }
+};
+
 
   </script>
   
