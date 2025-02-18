@@ -18,7 +18,7 @@ def login():
     print("The password is: ", password)
 
     if not username or not password:
-        return jsonify({'message': 'Username and password required.'}), 400
+        return jsonify({'message': 'Please enter both email and password.'}), 400
 
     db = get_db()
     user = User.get_by_username(db, username)
@@ -29,7 +29,7 @@ def login():
         login_user(user)
         return jsonify({'message': 'Logged in successfully.'}), 200
     else:
-        return jsonify({'message': 'Invalid credentials.'}), 401
+        return jsonify({'message': 'Invalid username or password.'}), 401
 
 @login_bp.route('/logout', methods=["POST"])
 @cross_origin(supports_credentials=True)
