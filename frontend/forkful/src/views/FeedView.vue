@@ -20,14 +20,16 @@
             <!-- <p class="description">Description: {{ recipe.description }}</p> -->
           </div>
 
-          <p>Ingredients:</p>
-          <div
-            class="card-ingredients"
-            v-for="(ingredient, index) in recipe.ingredients.split('\r\n')"
-            :key="index"
-          >
-            {{ ingredient }}
-          </div>
+          <section class="ingredient-section">
+            <div
+              class="card-ingredients"
+              v-for="(ingredient, index) in recipe.ingredients.split('\r\n')"
+              :key="index"
+            >
+              {{ ingredient }}
+            </div>
+          </section>
+
           <p>Posted on: {{ recipe.posted_date }}</p>
         </div>
       </div>
@@ -91,9 +93,15 @@ onMounted(() => {
 
 .recipe-card {
   padding: 1rem;
-  border: 1px solid #ccc;
+  /* You can remove the border or make it lighter */
+  border: 1px solid #d2e1cc; 
   border-radius: 4px;
+  background-color: #d2e1cc; /* A clean white background can be nice */
+
+  /* A subtle shadow to lift the card off the page */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+
 
 /* ==================== Header ==================== */
 .card-header {
@@ -115,6 +123,8 @@ onMounted(() => {
   display: flex;
   flex-direction: row;
   gap: 2rem;
+
+  margin-bottom: 2em;
 }
 
 .recipe-card img {
@@ -125,4 +135,21 @@ onMounted(() => {
 .card-description {
   font-size: 1.5rem;
 }
+
+/* ==================== Ingredient section ==================== */
+
+.ingredient-section {
+  display: grid;
+  /* Each column is at least 120px; adjust as needed */
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem; /* Space between items */
+}
+
+.card-ingredients {
+  background-color: #5e8d83;
+  padding: 0.5rem;
+  text-align: center;
+  border-radius: 4px;
+}
+
 </style>
