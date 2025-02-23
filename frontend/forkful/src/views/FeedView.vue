@@ -56,6 +56,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
+
 .feed-body {
   background: rgba(210, 225, 204, 0.4);
   backdrop-filter: blur(40px);
@@ -87,6 +88,11 @@ onMounted(() => {
   max-height: 90vh; /* adjust as needed */
   overflow-y: auto; /* allows scrolling */
 }
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
 
 .recipe-card {
   padding: 1rem;
