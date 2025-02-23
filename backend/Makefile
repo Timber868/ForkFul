@@ -6,3 +6,6 @@ Database:
 
 Run_tests:
 	pytest -v
+
+Install:
+	pip install -r requirements.txt
