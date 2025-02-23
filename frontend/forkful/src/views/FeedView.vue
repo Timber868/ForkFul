@@ -12,10 +12,7 @@
             <!-- <img :src="recipe.image" alt="Recipe Image" /> -->
             <img src="../assets/pasta-tim-test.jpg" alt="Recipe Image" />
             <p class="card-description">
-              Description: Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit. Suscipit dignissimos assumenda architecto tempore accusamus
-              in dolores a. Corporis est rerum obcaecati distinctio perspiciatis
-              fuga, illo, fugiat vel, sequi nulla explicabo?
+                {{ recipe.description }}
             </p>
             <!-- <p class="description">Description: {{ recipe.description }}</p> -->
           </div>
@@ -30,7 +27,7 @@
             </div>
           </section>
 
-          <p>Posted on: {{ recipe.posted_date }}</p>
+          <p class="card-date">{{ recipe.posted_date }}</p>
         </div>
       </div>
     </div>
@@ -109,13 +106,21 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  color: #333;
-  font-weight: bold;
+  padding-bottom: 0.5rem; /* extra space below header */
+  border-bottom: 1px solid #993232; /* a subtle separator */
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.5rem; /* Large enough to be eye-catching */
+  font-weight: bold;
+  margin: 0;
 }
+
+.card-username {
+  font-size: 1rem;
+  color: #666; /* A bit more subdued than the title */
+}
+
 
 /* ==================== Information ==================== */
 
@@ -128,13 +133,16 @@ onMounted(() => {
 }
 
 .recipe-card img {
-  width: 20em;
+  width: 30em;
   height: auto;
 }
 
 .card-description {
   font-size: 1.5rem;
+  line-height: 1.5;
+  color: #333;
 }
+
 
 /* ==================== Ingredient section ==================== */
 
@@ -151,5 +159,13 @@ onMounted(() => {
   text-align: center;
   border-radius: 4px;
 }
+
+/* ==================== Posted Date ==================== */
+.card-date {
+  margin: 0.5rem 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
 
 </style>
