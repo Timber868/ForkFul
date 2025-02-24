@@ -25,17 +25,19 @@
   <script setup lang="ts">
     import {ref} from "vue";
     import axios from "axios";
+    import { useAuthStore } from "@/stores/auth";
     import { useRouter } from "vue-router";
 
     const username = ref("");
     const password = ref("")
     const errorMessage = ref("")
+    const authStore = useAuthStore();
 
     const router = useRouter();
 
     const handleLogin = async () => {
     try {
-        const response = await axios.post("http://localhost:5000/auth/login", {
+        const response = await axios.post("http://localhost:5001/auth/login", {
             username: username.value,
             password: password.value
         }, {withCredentials: true});
@@ -44,6 +46,7 @@
         console.log(response.data);
 
         if (response.status === 200) {
+            authStore.setToken(response.data.token);
             router.replace('/feed');
         }
 

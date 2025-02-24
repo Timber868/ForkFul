@@ -19,8 +19,8 @@ cur.execute("INSERT INTO posts (title, content) VALUES (?, ?)",
 
 hashed_password = generate_password_hash('password')
 
-cur.execute("INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-            ('admin', 'adming@gmail.com', hashed_password)
+cur.execute("INSERT INTO users (username, email, password, name, phoneNumber) VALUES (?, ?, ?, ?, ?)",
+            ('admin', 'adming@gmail.com', hashed_password, 'Admin', '1234567890')
             )
 
 connection.commit()

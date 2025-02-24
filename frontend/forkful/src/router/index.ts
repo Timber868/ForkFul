@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth' // Import Pinia store
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import FeedView from '../views/FeedView.vue'
@@ -28,18 +29,31 @@ const router = createRouter({
       path: '/feed',
       name: 'feed',
       component: FeedView,
+      meta: { requiresAuth: true } // Mark route as protected
     },
     {
       path: '/profile',
       name: 'profile',
       component: ProfileView,
+      meta: { requiresAuth: true } // Mark route as protected
     },
     {
       path: '/post',
       name: 'post',
       component: PostView,
+      meta: { requiresAuth: true } // Mark route as protected
     }
   ],
 })
 
-export default router
+// Global Navigation Guard
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  if (to.meta.requiresAuth && !authStore.isAuthenticated) {
+    next('/login'); // Redirect to login if not authenticated
+  } else {
+    next(); // Allow access
+  }
+});
+
+export default router;
