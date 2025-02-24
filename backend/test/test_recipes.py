@@ -184,5 +184,56 @@ def test_create_recipe_no_image(client):
     assert response.json["error"] == "No image uploaded"
 
 
+# Test for get all recipes
+def test_get_recipe_no_recipes(client):
+    """Test getting all recipes when no recipes exist."""
+    response = client.get("/recipes/")
+    assert response.status_code == 200
+    assert response.json == []
 
+# Test for getting all receipes
+def test_get_all_recipes(client):
+    """Test getting all recipes."""
+    data_recipe1 = {
+        "name": "Chocolate Cake",
+        "posted_date": "2025-02-20",
+        "username": "testuser",
+        "ingredients": "Flour, Sugar, Cocoa Powder",
+        "description": "A delicious chocolate cake."
+    }
 
+    data_recipe2 = {
+        "name": "Vegan Salad",
+        "posted_date": "2025-02-21",
+        "username": "testuser",
+        "ingredients": "Lettuce, Tomatoes, Cucumbers",
+        "description": "A healthy vegan salad."
+    }
+
+    #Add both recipes to the database
+    with open(TEST_IMAGE_PATH, "rb") as img:
+        data_recipe1["image"] = img
+        response = client.post("/recipes/", data=data_recipe1, content_type="multipart/form-data")
+        assert response.status_code == 201
+
+    with open(TEST_IMAGE_PATH, "rb") as img:
+        data_recipe2["image"] = img
+        response = client.post("/recipes/", data=data_recipe2, content_type="multipart/form-data")
+        assert response.status_code == 201
+
+    response = client.get("/recipes/")
+    assert response.status_code == 200
+    assert len(response.json) == 2
+    assert response.json[0]["name"] == "Chocolate Cake"
+    assert response.json[0]["posted_date"] == "2025-02-20"
+    assert response.json[0]["username"] == "testuser"
+    assert response.json[0]["ingredients"] == "Flour, Sugar, Cocoa Powder"
+    assert response.json[0]["description"] == "A delicious chocolate cake."
+    assert "image" in response.json[0]
+
+    assert response.json[1]["name"] == "Vegan Salad"
+    assert response.json[1]["posted_date"] == "2025-02-21"
+    assert response.json[1]["username"] == "testuser"
+    assert response.json[1]["ingredients"] == "Lettuce, Tomatoes, Cucumbers"
+    assert response.json[1]["description"] == "A healthy vegan salad."
+    assert "image" in response.json[1]
