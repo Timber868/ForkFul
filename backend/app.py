@@ -6,6 +6,7 @@ from blueprints.register import register_bp
 from blueprints.users import users
 from flask_login import LoginManager
 from database.database import get_db
+from models.user import User
 
 app = Flask(__name__)
 app.secret_key = 'placeholder-key'
