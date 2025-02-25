@@ -5,6 +5,7 @@ from blueprints.login import login_bp
 from blueprints.register import register_bp
 from blueprints.users import users
 from blueprints.recipes import recipes
+from blueprints.profile import profile
 from flask_login import LoginManager
 from database.database import get_db
 from models.user import User
@@ -26,6 +27,7 @@ app.register_blueprint(posts)
 app.register_blueprint(login_bp)
 app.register_blueprint(users)
 app.register_blueprint(recipes)
+app.register_blueprint(profile)
 
 @app.teardown_appcontext
 def close_connection(exception):
