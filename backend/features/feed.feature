@@ -9,17 +9,17 @@ Feature: View Feed of Recipes
       | Chocolate Cake  | Alice    | 2025-01-01  | Chocolate, Flour, Butter, Sugar, Milk   | A moist and decadent chocolate cake topped with creamy chocolate frosting.         | chocolate_cake.jpg   |
       | Vegan Salad     | Bob      | 2025-01-02  | Salad, Beets, Carrots, Vinaigrette      | A colorful salad loaded with greens, crunchy veggies, and a light vinaigrette.     | vegan_salad.jpg      |
     When the User tries to access the list of stored recipes
-    Then the User should see a list of recipes
+    Then the User should see a list with both of these recipes in it
     And each recipe item should display the name, username, posted_date, ingredients, description, and image
 
   Scenario: Show a message when no recipes are available
     Given there are no recipes posted by other users
-    When the User tries to access the list of recipes available
+    When the User tries to access the list of stored recipes
     Then the User should see an empty list of recipes
 
-  Scenario: Warning for recipes with incomplete details when many recipes exist (Alternative Flow)
+  Scenario: Warning for recipes with incomplete details when many recipes exist
     Given the following recipes exist
-      | name                 | username | posted_date | ingredients                                           | description                                                        | image.jpg                |
+      | name                 | username | posted_date | ingredients                                           | description                                                        | image                    |
       | Mystery Dish         | Dana     | 2025-01-04  | Unknown                                               | A mystery dish whose content are Unknown.                          | mystery_dish.jpg         |
       | Spicy Tofu Stir Fry  | Eva      | 2025-01-05  | Tofu, Vegetables, Soy Sauce                           | A delicious spicy tofu stir fry with a kick of chili.              | spicy_tofu.jpg           |
       | Garlic Bread         | Frank    | 2025-01-06  | Bread, Garlic, Butter                                 | Perfectly crispy garlic bread to complement any meal.              | garlic_bread.jpg         |

@@ -60,12 +60,12 @@ def step_impl_access_recipes(context):
         rows = cursor.fetchall()
         context.recipes = [
             {
-                "name": row[0],
-                "username": row[1],
-                "posted_date": row[2],
-                "ingredients": row[3],
-                "description": row[4],
-                "image": row[5]
+                "name": row["name"],
+                "username": row["username"],
+                "posted_date": row["posted_date"],
+                "ingredients": row["ingredients"],
+                "description": row["description"],
+                "image": row["image"]
             } for row in rows
         ]
         cursor.close()
@@ -74,6 +74,14 @@ def step_impl_access_recipes(context):
 def step_impl_see_recipe_list(context):
     assert context.recipes is not None, "No recipes were retrieved."
     assert len(context.recipes) > 0, "The recipes list is empty, but it should contain recipes."
+
+
+@then('the User should see a list with both of these recipes in it')
+def step_impl_see_recipe_list(context):
+    assert context.recipes is not None, "No recipes were retrieved."
+    assert len(context.recipes) == 2, "The recipes list should contain 2 recipes."
+    assert context.recipes[0]["name"] == "Chocolate Cake", "First recipe name is incorrect."
+    assert context.recipes[1]["name"] == "Vegan Salad", "Second recipe name is incorrect."
 
 @then('each recipe item should display the name, username, posted_date, ingredients, description, and image')
 def step_impl_recipe_fields(context):
@@ -93,6 +101,9 @@ def step_impl_see_all_20_recipes(context):
     expected_count = 20
     actual_count = len(context.recipes)
     assert actual_count == expected_count, f"Expected {expected_count} recipes, but got {actual_count}."
+    for recipe in context.recipes:
+        assert all([recipe["name"], recipe["username"], recipe["posted_date"], recipe["ingredients"],
+                    recipe["description"], recipe["image"]]), "Recipe has missing details."
 
 # Alternative Flow: Warning for recipes with incomplete details.
 # For this example, we consider a recipe to have incomplete details if any of the fields (except image) is an empty string.

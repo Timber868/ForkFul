@@ -1,5 +1,6 @@
 import sqlite3
 from database.database import get_db
+from behave import given, when, then
 from flask import g
 
 @given('the username "{username}" and email "{email}" and phone number "{phone}" do not exist in the system')
