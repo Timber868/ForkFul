@@ -14,6 +14,8 @@ CREATE TABLE users (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     username TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
+    phoneNumber TEXT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
     password TEXT NOT NULL
 );
 
