@@ -26,6 +26,11 @@ def step_logged_in(context):
     payload = {"username": context.username, "password": context.password}
     response = context.client.post('/auth/login', json=payload)
     assert response.status_code == 200, "Failed to log in."
+    # 🔹 Store Authorization Headers Instead of Cookies
+    context.auth_headers = {
+        "Authorization": f"Bearer {response.json.get('token', '')}"
+    }
+    
     context.response = response
 
 @when("I send a login request")
@@ -48,6 +53,9 @@ def step_check_status_code(context, status_code):
 
 @then('the response message should be "{message}"')
 def step_check_message(context, message):
+    print(f"🔍 Checking response in step: {context.response.status_code}")
     json_data = context.response.get_json()
-    actual = json_data.get("message")
+    if json_data is None:
+        print("🔍 JSON parsing failed:", context.response.data.decode())
+    actual = json_data.get("message") or json_data.get("error")
     assert actual == message, f"Expected message '{message}', got '{actual}'"
