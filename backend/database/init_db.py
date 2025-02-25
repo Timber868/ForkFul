@@ -23,5 +23,15 @@ cur.execute("INSERT INTO users (username, email, password, name, phoneNumber) VA
             ('admin', 'adming@gmail.com', hashed_password, 'Admin', '1234567890')
             )
 
+cur.execute('INSERT INTO recipes (name, posted_date, username, ingredients, description, image) VALUES (?, ?, ?, ?, ?, ?)',
+                ('pasta', '12 January', 'admin', 'sauce, spaghetti', 'very yummy pasta', "../tests/test_image.jpg"))
+
+cur.execute('INSERT INTO recipes (name, posted_date, username, ingredients, description, image) VALUES (?, ?, ?, ?, ?, ?)',
+                ('pizza', '12 January', 'admin', 'cheese, pepperoni', 'very yummy pizza', "../tests/test_image.jpg"))
+
+
+# cur.execute('INSERT INTO recipes (name, posted_date, username, ingredients, description, image) VALUES (?, ?, ?, ?, ?, ?)',
+#                 (data['name'], data['posted_date'], data['username'], data['ingredients'], data['description'], filepath))
+
 connection.commit()
 connection.close()
