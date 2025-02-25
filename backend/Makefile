@@ -1,7 +1,7 @@
 Run:
 	python app.py
 
-Database:
+data:
 	python database/init_db.py
 
 Run_tests:
