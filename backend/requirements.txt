@@ -4,3 +4,4 @@ pytest
 flask-testing
 flask-login
 werkzeug
+behave
