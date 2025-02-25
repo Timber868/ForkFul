@@ -13,12 +13,18 @@ def get_profile_info(username):
     user = cur.execute('SELECT * FROM users WHERE username = ?', (username,)).fetchone()
 
     if user is None:
-        return jsonify({"error": "User not found"}), 404
+        return jsonify({"message": "This profile does not exist or is no longer available."}), 404
     
 
     recipes = cur.execute('SELECT * FROM recipes WHERE username = ?', (username,)).fetchall()
+
+    if len(recipes) == 0:
+        message = "No recipes posted yet."
+    else:
+        message = "Profile exists with recipes!"
+
     cur.close()
-    print
+
     return jsonify({
         "user": {
             "id": user["id"],
@@ -37,6 +43,7 @@ def get_profile_info(username):
             "ingredients": recipe["ingredients"],
             "description": recipe["description"],
             "image": recipe["image"]
-        } for recipe in recipes]
+        } for recipe in recipes],
+        "message" : message
     })
 
