@@ -28,6 +28,7 @@ app.register_blueprint(login_bp)
 app.register_blueprint(users)
 app.register_blueprint(recipes)
 app.register_blueprint(profile)
+app.register_blueprint(register_bp)
 
 @app.teardown_appcontext
 def close_connection(exception):
