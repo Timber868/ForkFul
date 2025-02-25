@@ -25,7 +25,7 @@ def insert_recipe(db, recipe):
 def step_impl_insert_recipes(context):
     with context.app.app_context():
         db = get_db()
-        # Optionally, clear the recipes table before inserting new data.
+        # Clear the recipes table before inserting new data.
         cursor = db.cursor()
         cursor.execute("DELETE FROM recipes")
         db.commit()
@@ -105,11 +105,8 @@ def step_impl_see_all_20_recipes(context):
         assert all([recipe["name"], recipe["username"], recipe["posted_date"], recipe["ingredients"],
                     recipe["description"], recipe["image"]]), "Recipe has missing details."
 
-# Alternative Flow: Warning for recipes with incomplete details.
-# For this example, we consider a recipe to have incomplete details if any of the fields (except image) is an empty string.
 @then('the User should see a warning "Some recipes have incomplete details."')
 def step_impl_warning_incomplete(context):
-    # Check if at least one recipe is incomplete.
     incomplete = [
         recipe for recipe in context.recipes
         if not all([recipe["name"].strip(), recipe["username"].strip(), recipe["posted_date"].strip(),
@@ -117,13 +114,10 @@ def step_impl_warning_incomplete(context):
     ]
     context.incomplete_recipes = incomplete
     assert len(incomplete) > 0, "Expected some recipes to have incomplete details, but none were found."
-    # Here you could also simulate setting a warning message in the UI.
     context.warning_message = "Some recipes have incomplete details."
     assert context.warning_message == "Some recipes have incomplete details."
 
 @then('the incomplete recipes should be highlighted for review')
 def step_impl_highlight_incomplete(context):
-    # In an actual implementation, this step might check UI elements.
-    # Here, we simply assert that our context has captured incomplete recipes.
     assert hasattr(context, "incomplete_recipes"), "Incomplete recipes were not captured."
     assert len(context.incomplete_recipes) > 0, "No incomplete recipes to highlight."
