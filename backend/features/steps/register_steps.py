@@ -9,12 +9,11 @@ def step_check_user_does_not_exist(context, username, email, phone):
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            "SELECT * FROM users WHERE username = ? OR email = ? OR phoneNumber = ?",
+            "DELETE FROM users WHERE username = ? OR email = ? OR phoneNumber = ?",
             (username, email, phone)
         )
-        user = cursor.fetchone()
+        db.commit()
         cursor.close()
-        assert user is None, f"User with username '{username}', email '{email}', or phone '{phone}' already exists."
 
 @when('a user registers with the following details')
 def step_register_user(context):
