@@ -1,11 +1,6 @@
-Feature: User login
+Feature: Flask API
 
-  Scenario: Successful login with valid credentials
-    Given I am on the login page
-    When I enter valid credentials
-    Then I should see a welcome message
-
-  Scenario: Unsuccessful login with invalid credentials
-    Given I am on the login page
-    When I enter invalid credentials
-    Then I should see an error message
+  Scenario: Checking if the Flask app is running
+    Given the Flask app is running
+    When I send a GET request to "/"
+    Then I should receive a 200 status code
