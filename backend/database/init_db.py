@@ -19,15 +19,15 @@ cur.execute("INSERT INTO posts (title, content) VALUES (?, ?)",
 
 hashed_password = generate_password_hash('password')
 
-cur.execute("INSERT INTO users (username, email, password, name, phoneNumber) VALUES (?, ?, ?, ?, ?)",
-            ('admin', 'adming@gmail.com', hashed_password, 'Admin', '1234567890')
+cur.execute("INSERT INTO users (username, email, password, name, phoneNumber, status) VALUES (?, ?, ?, ?, ?, ?)",
+            ('admin', 'adming@gmail.com', hashed_password, 'Admin', '1234567890', 'active')
             )
 
-cur.execute("INSERT INTO users (username, email, password, name, phoneNumber) VALUES (?, ?, ?, ?, ?)",
-            ('other', 'other@gmail.com', hashed_password, 'other', '1234567891'))
+cur.execute("INSERT INTO users (username, email, password, name, phoneNumber, status) VALUES (?, ?, ?, ?, ?, ?)",
+            ('other', 'other@gmail.com', hashed_password, 'other', '1234567891', 'active'))
 
-cur.execute("INSERT INTO users (username, email, password, name, phoneNumber) VALUES (?, ?, ?, ?, ?)",
-            ('empty', 'empty@gmail.com', hashed_password, 'empty', '1234567892'))
+cur.execute("INSERT INTO users (username, email, password, name, phoneNumber, status) VALUES (?, ?, ?, ?, ?, ?)",
+            ('empty', 'empty@gmail.com', hashed_password, 'empty', '1234567892', 'active'))
 
 cur.execute('INSERT INTO recipes (name, posted_date, username, ingredients, description, image) VALUES (?, ?, ?, ?, ?, ?)',
                 ('pasta', '12 January', 'admin', 'sauce, spaghetti', 'very yummy pasta', "../tests/test_image.jpg"))

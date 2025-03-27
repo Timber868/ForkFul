@@ -35,5 +35,5 @@ def register():
     # hash password
     hashed_password = generate_password_hash(password)
 
-    user = User.create(db, username, email, hashed_password, name, phoneNumber)
+    user = User.create(db, username, email, hashed_password, name, phoneNumber, 'active')
     return jsonify({'message': 'User created successfully.'}), 200

@@ -16,7 +16,8 @@ CREATE TABLE users (
     email TEXT NOT NULL UNIQUE,
     phoneNumber TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    status TEXT NOT NULL
 );
 
 
