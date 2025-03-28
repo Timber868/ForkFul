@@ -25,11 +25,15 @@ def login():
     print("The user's username is: ", user.username)
     print("The user's password is: ", user.password)
 
-    if user and check_password_hash(user.password, password):
-        login_user(user)
-        return jsonify({'message': 'Logged in successfully.'}), 200
-    else:
-        return jsonify({'message': 'Invalid username or password.'}), 401
+    if user:
+        if user.status == 'banned':
+            return jsonify({'message': 'User is banned.'}), 403
+        
+        if check_password_hash(user.password, password):
+            login_user(user)
+            return jsonify({'message': 'Logged in successfully.'}), 200
+
+    return jsonify({'message': 'Invalid username or password.'}), 401
 
 @login_bp.route('/logout', methods=["POST"])
 @cross_origin(supports_credentials=True)
