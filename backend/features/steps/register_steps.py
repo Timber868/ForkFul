@@ -29,14 +29,15 @@ def step_register_user(context):
             db = get_db()
             cursor = db.cursor()
             cursor.execute(
-                "INSERT INTO users (name, username, email, password, phoneNumber, created) "
-                "VALUES (?, ?, ?, ?, ?, datetime('now'))",
+                "INSERT INTO users (name, username, email, password, phoneNumber, status, created) "
+                "VALUES (?, ?, ?, ?, ?, ?, datetime('now'))",
                 (
                     context.user_data["name"],
                     context.user_data["username"],
                     context.user_data["email"],
                     context.user_data["password"],  # Ensure password hashing in actual implementation
                     context.user_data["phoneNumber"],
+                    "active"
                 )
             )
             db.commit()
@@ -60,9 +61,9 @@ def step_check_username_exists(context, username):
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            "INSERT INTO users (name, username, email, phoneNumber, password, created) "
-            "VALUES (?, ?, ?, ?, ?, datetime('now'))",
-            ("Dummy Name", username, "dummy@example.com", "000-000-0000", "hashed")
+            "INSERT INTO users (name, username, email, phoneNumber, password, status, created) "
+            "VALUES (?, ?, ?, ?, ?, ?, datetime('now'))",
+            ("Dummy Name", username, "dummy@example.com", "000-000-0000", "hashed", "active")
         )
         db.commit()
         cursor.close()
@@ -91,9 +92,9 @@ def step_check_email_exists(context, email):
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            "INSERT INTO users (name, username, email, phoneNumber, password, created) "
-            "VALUES (?, ?, ?, ?, ?, datetime('now'))",
-            ("Dummy Name", "dummyuser", email, f"unique-{email[-4:]}", "hashed")
+            "INSERT INTO users (name, username, email, phoneNumber, password, status, created) "
+            "VALUES (?, ?, ?, ?, ?, ?, datetime('now'))",
+            ("Dummy Name", "dummyuser", email, f"unique-{email[-4:]}", "hashed", "active")
         )
         db.commit()
         cursor.close()
@@ -112,9 +113,9 @@ def step_check_phone_exists(context, phone):
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            "INSERT INTO users (name, username, email, phoneNumber, password, created) "
-            "VALUES (?, ?, ?, ?, ?, datetime('now'))",
-            ("Dummy Name", "dummyuser2", "dummy2@example.com", phone, "hashed")
+            "INSERT INTO users (name, username, email, phoneNumber, password, status, created) "
+            "VALUES (?, ?, ?, ?, ?, ?, datetime('now'))",
+            ("Dummy Name", "dummyuser2", "dummy2@example.com", phone, "hashed", "active")
         )
         db.commit()
         cursor.close()
@@ -148,14 +149,15 @@ def step_register_with_missing_details(context):
                 }
             else:
                 cursor.execute(
-                    "INSERT INTO users (name, username, email, password, phoneNumber, created) "
-                    "VALUES (?, ?, ?, ?, ?, datetime('now'))",
+                    "INSERT INTO users (name, username, email, password, phoneNumber, status, created) "
+                    "VALUES (?, ?, ?, ?, ?, ?, datetime('now'))",
                     (
                         context.user_data["name"],
                         context.user_data["username"],
                         context.user_data["email"],
                         context.user_data["password"],
                         context.user_data["phoneNumber"],
+                        "active"
                     )
                 )
                 db.commit()

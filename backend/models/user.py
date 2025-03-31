@@ -2,7 +2,7 @@ from flask_login import UserMixin
 from datetime import datetime
 
 class User(UserMixin):
-    def __init__(self, id, created, username, email, password, name, phoneNumber):
+    def __init__(self, id, created, username, email, password, name, phoneNumber, status):
         self.username = username
         self.email = email
         self.password = password
@@ -10,6 +10,7 @@ class User(UserMixin):
         self.name = name
         self.phoneNumber = phoneNumber
         self.id = id
+        self.status = status
 
     @classmethod
     def get(cls, db, user_id):
@@ -24,7 +25,8 @@ class User(UserMixin):
                 row["email"],
                 row["password"],
                 row["name"],
-                row["phoneNumber"]
+                row["phoneNumber"],
+                row["status"]
             )
         return None
 
@@ -40,7 +42,8 @@ class User(UserMixin):
                 row["email"],
                 row["password"],
                 row["name"],
-                row["phoneNumber"]
+                row["phoneNumber"],
+                row["status"]
             )
         return None
     
@@ -56,7 +59,8 @@ class User(UserMixin):
                 row["email"],
                 row["password"],
                 row["name"],
-                row["phoneNumber"]
+                row["phoneNumber"],
+                row["status"]
             )
         return None
     
@@ -72,14 +76,15 @@ class User(UserMixin):
                 row["email"],
                 row["password"],
                 row["name"],
-                row["phoneNumber"]
+                row["phoneNumber"],
+                row["status"]
             )
         return None
 
 
     @staticmethod
-    def create(db, username, email, password, name, phoneNumber):
+    def create(db, username, email, password, name, phoneNumber, status="active"):
         cur = db.cursor()
-        cur.execute("INSERT INTO users (username, email, password, created, name, phoneNumber) VALUES (?, ?, ?, ?, ?, ?)", (username, email, password, datetime.now(), name, phoneNumber))
+        cur.execute("INSERT INTO users (username, email, password, created, name, phoneNumber, status) VALUES (?, ?, ?, ?, ?, ?, ?)", (username, email, password, datetime.now(), name, phoneNumber, status))
         db.commit()
         return User.get_by_username(db, username)
