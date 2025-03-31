@@ -89,7 +89,7 @@ const username = 'admin';
 
 onMounted(async () => {
     try {
-        const response = await axios.get(`http://127.0.0.1:5001/profile/${username}`);
+        const response = await axios.get(`http://127.0.0.1:5000/profile/${username}`);
         
         // Assuming response contains the user and recipes
         user.value = response.data.user;

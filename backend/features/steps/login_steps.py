@@ -23,6 +23,7 @@ def step_incomplete_details(context):
 def step_logged_in(context):
     context.username = "admin"
     context.password = "password"
+    context.user_id = 1
     payload = {"username": context.username, "password": context.password}
     response = context.client.post('/auth/login', json=payload)
     assert response.status_code == 200, "Failed to log in."
