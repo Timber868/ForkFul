@@ -38,6 +38,24 @@ cur.execute('INSERT INTO recipes (name, posted_date, username, ingredients, desc
 cur.execute('INSERT INTO recipes (name, posted_date, username, ingredients, description, image) VALUES (?, ?, ?, ?, ?, ?)',
                 ('burger', '24 February', 'other', 'patty, bun, lettuce, ketchup, pickles, cheese', 'very yummy burger', "../tests/test_image.jpg"))
 
+cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
+            (1, 1, 1))
+
+cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
+            (1, 2, 0))
+
+cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
+            (2, 1, 1))
+
+cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
+            (2, 2, 1))
+
+cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
+            (3, 1, 0))
+
+cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
+            (3, 2, 0))
+
 # cur.execute('INSERT INTO recipes (name, posted_date, username, ingredients, description, image) VALUES (?, ?, ?, ?, ?, ?)',
 #                 (data['name'], data['posted_date'], data['username'], data['ingredients'], data['description'], filepath))
 
