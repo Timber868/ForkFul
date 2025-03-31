@@ -14,16 +14,11 @@ def login():
     username = data.get('username')
     password = data.get('password')
 
-    print("The username is: ", username)
-    print("The password is: ", password)
-
     if not username or not password:
         return jsonify({'message': 'Please enter both email and password.'}), 400
 
     db = get_db()
     user = User.get_by_username(db, username)
-    print("The user's username is: ", user.username)
-    print("The user's password is: ", user.password)
 
     if user:
         if user.status == 'banned':

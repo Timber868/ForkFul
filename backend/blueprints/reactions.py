@@ -61,3 +61,23 @@ def create_reaction():
     cur.close()
 
     return jsonify({"message": "Reaction added successfully"}), 201
+
+@reactions.route('', methods=["DELETE"])
+def delete_reaction():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    recipe_id = data.get('recipe_id')
+
+    # Check if all required fields are present
+    if user_id is None or recipe_id is None:
+        return jsonify({"error": "user_id and recipe_id are required"}), 400
+    
+    cur = get_db().cursor()
+
+    # Delete the reaction
+    cur.execute('DELETE FROM reactions WHERE user_id = ? AND recipe_id = ?', (user_id, recipe_id))
+
+    get_db().commit()
+    cur.close()
+
+    return jsonify({"message": "Reaction deleted successfully"}), 200

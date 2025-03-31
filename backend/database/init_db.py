@@ -51,10 +51,16 @@ cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, 
             (2, 2, 1))
 
 cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
+            (2, 3, 1))
+
+cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
             (3, 1, 0))
 
 cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
             (3, 2, 0))
+
+cur.execute('INSERT INTO reactions (user_id, recipe_id, reaction) VALUES (?, ?, ?)',
+            (3, 3, 1))
 
 # cur.execute('INSERT INTO recipes (name, posted_date, username, ingredients, description, image) VALUES (?, ?, ?, ?, ?, ?)',
 #                 (data['name'], data['posted_date'], data['username'], data['ingredients'], data['description'], filepath))
