@@ -6,6 +6,7 @@ import FeedView from '../views/FeedView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import PostView from '@/views/PostView.vue'
+import UserManagementView from '../views/UserManagementView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,7 +43,13 @@ const router = createRouter({
       name: 'post',
       component: PostView,
       meta: { requiresAuth: true } // Mark route as protected
-    }
+    },
+    {
+      path: '/users',
+      name: 'user-management',
+      component: UserManagementView,
+      meta: { requiresAuth: true } // Mark route as protected
+    }    
   ],
 })
 

@@ -8,6 +8,7 @@
       <RouterLink class="nav-link" to="/feed">Feed</RouterLink>
       <RouterLink class="nav-link" to="/profile">Profile</RouterLink>
       <RouterLink class="nav-link" to="/post">Post</RouterLink>
+      <RouterLink class="nav-link" to="/users">Users</RouterLink>
 
       <button class="nav-link" @click="handleLogout">Logout</button>
     </div>
