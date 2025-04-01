@@ -63,7 +63,7 @@
         console.log(response.data);
 
         if (response.status === 200) {
-            authStore.setToken(response.data.token);
+          authStore.setToken(response.data.token, username.value);
             router.replace('/feed');
         }
 

@@ -6,6 +6,13 @@
           <div class="card-header">
             <span class="card-title">{{ recipe.name }}</span>
             <span class="card-username">{{ recipe.username }} </span>
+            <button
+    v-if="authStore.username === 'admin'"
+    @click="deleteRecipe(recipe.id)"
+    class="delete-button"
+  >
+    Delete
+  </button>
           </div>
 
           <div class="card-information">
@@ -37,16 +44,28 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { useAuthStore } from "@/stores/auth"; 
+
+const authStore = useAuthStore();
 
 const recipes = ref<any[]>([]);
 
 const fetchRecipes = async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:5000/recipes");
+    const response = await axios.get("http://127.0.0.1:5001/recipes");
     recipes.value = response.data;
     console.log("Recipes fetched:", recipes.value);
   } catch (error) {
     console.error("Error fetching recipes:", error);
+  }
+};
+const deleteRecipe = async (id: number) => {
+  try {
+    await axios.delete(`http://127.0.0.1:5001/recipes/${id}`);
+    recipes.value = recipes.value.filter(recipe => recipe.id !== id); // Remove deleted recipe from list
+    console.log(`Recipe ${id} deleted`);
+  } catch (error) {
+    console.error("Error deleting recipe:", error);
   }
 };
 
@@ -173,5 +192,20 @@ onMounted(() => {
   font-size: 0.9rem;
 }
 
+/* ==================== Delete Button ==================== */
+.delete-button {
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #e74c3c;
+}
 
 </style>

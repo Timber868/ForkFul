@@ -22,8 +22,8 @@ def login():
 
     db = get_db()
     user = User.get_by_username(db, username)
-    print("The user's username is: ", user.username)
-    print("The user's password is: ", user.password)
+    #print("The user's username is: ", user.username)
+    #print("The user's password is: ", user.password)
 
     if user:
         if user.status == 'banned':
