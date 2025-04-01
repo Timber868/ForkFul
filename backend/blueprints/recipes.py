@@ -71,22 +71,21 @@ def create_recipe():
     return jsonify({"message": "Recipe successfully created!", "recipe": recipe}), 201
 
 @recipes.route('/', methods=["GET"])
-def get_recipes():
-    """Retrieve recipes by name or partial name, or all recipes if no name is specified"""
-    if request.is_json:
-        data = request.get_json()
-    else:
-        data = None
-
+def get_all_recipes():
+    """Retrieve all recipes."""
     cur = get_db().cursor()
+    recipes = cur.execute('SELECT * FROM recipes').fetchall()
+    return jsonify(recipes), 200
 
-    if data and 'name' in data and data['name'].strip():
-        name = data['name']
-        # Use a SQL query with a wildcard to find recipes that match or start with the given name
-        recipes = cur.execute('SELECT * FROM recipes WHERE name LIKE ?', (f'{name}%',)).fetchall()
-    else:
-        # If no name is specified, retrieve all recipes
-        recipes = cur.execute('SELECT * FROM recipes').fetchall()
+
+@recipes.route('/<string:name>', methods=["GET"])
+def get_recipes_by_name(name):
+    """Retrieve recipes by name or partial name."""
+    cur = get_db().cursor()
+    recipes = cur.execute('SELECT * FROM recipes WHERE name LIKE ?', (f'{name}%',)).fetchall()
+    
+    if not recipes:
+        return jsonify({'error': f"No recipes found for '{name}'"}), 404
 
     return jsonify(recipes), 200
 
