@@ -77,4 +77,20 @@ def get_recipes():
     recipes = cur.execute('SELECT * FROM recipes').fetchall()
     return jsonify(recipes), 200
 
+@recipes.route('/<int:recipe_id>', methods=["DELETE"])
+def delete_recipe(recipe_id):
+    """Delete a recipe by ID"""
+    db = get_db()
+    cur = db.cursor()
+
+    # Check if the recipe exists
+    recipe = cur.execute('SELECT * FROM recipes WHERE id = ?', (recipe_id,)).fetchone()
+    if recipe is None:
+        return jsonify({"error": "Recipe not found"}), 404
+
+    # Delete the recipe
+    cur.execute('DELETE FROM recipes WHERE id = ?', (recipe_id,))
+    db.commit()
+
+    return jsonify({"message": "Recipe successfully deleted!"}), 200
 
