@@ -72,10 +72,24 @@ def create_recipe():
 
 @recipes.route('/', methods=["GET"])
 def get_recipes():
-    """Retrieve all recipes"""
+    """Retrieve recipes by name or partial name, or all recipes if no name is specified"""
+    data = request.get_json()
     cur = get_db().cursor()
-    recipes = cur.execute('SELECT * FROM recipes').fetchall()
+
+    if data and 'name' in data and data['name'].strip():
+        name = data['name']
+        # Use a SQL query with a wildcard to find recipes that match or start with the given name
+        recipes = cur.execute('SELECT * FROM recipes WHERE name LIKE ?', (f'{name}%',)).fetchall()
+    else:
+        # If no name is specified, retrieve all recipes
+        recipes = cur.execute('SELECT * FROM recipes').fetchall()
+
+    if not recipes:
+        return jsonify({"message": "No recipes found"}), 404
+
     return jsonify(recipes), 200
+
+
 
 @recipes.route('/<int:recipe_id>', methods=["DELETE"])
 def delete_recipe(recipe_id):
