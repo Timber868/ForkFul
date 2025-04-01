@@ -73,7 +73,11 @@ def create_recipe():
 @recipes.route('/', methods=["GET"])
 def get_recipes():
     """Retrieve recipes by name or partial name, or all recipes if no name is specified"""
-    data = request.get_json()
+    if request.is_json:
+        data = request.get_json()
+    else:
+        data = None
+
     cur = get_db().cursor()
 
     if data and 'name' in data and data['name'].strip():
@@ -83,9 +87,6 @@ def get_recipes():
     else:
         # If no name is specified, retrieve all recipes
         recipes = cur.execute('SELECT * FROM recipes').fetchall()
-
-    if not recipes:
-        return jsonify({"message": "No recipes found"}), 404
 
     return jsonify(recipes), 200
 
