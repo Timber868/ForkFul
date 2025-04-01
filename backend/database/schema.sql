@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS posts;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS recipes;
+DROP TABLE IF EXISTS reactions;
 
 CREATE TABLE posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,4 +31,13 @@ CREATE TABLE recipes (
     ingredients TEXT NOT NULL,
     description TEXT NOT NULL,
     image TEXT
+);
+
+CREATE TABLE reactions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    recipe_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    reaction BOOLEAN NOT NULL,
+    FOREIGN KEY (recipe_id) REFERENCES recipes (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );

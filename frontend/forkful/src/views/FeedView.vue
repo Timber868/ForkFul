@@ -34,6 +34,17 @@
             </div>
           </section>
 
+          <div class="reactions">
+            <div class="reaction-item">
+              <span v-if="recipe.reactions">{{ recipe.reactions.booms }}</span>
+              <img src="../assets/boom.png" height="30px" alt="Boom" />
+            </div>
+            <div class="reaction-item">
+              <span v-if="recipe.reactions">{{ recipe.reactions.dooms }}</span>
+              <img src="../assets/doom.png" height="30px" alt="Doom" />
+            </div>
+          </div>
+
           <p class="card-date">{{ recipe.posted_date }}</p>
         </div>
       </div>
@@ -57,6 +68,20 @@ const fetchRecipes = async () => {
     console.log("Recipes fetched:", recipes.value);
   } catch (error) {
     console.error("Error fetching recipes:", error);
+  }
+
+  try {
+    for (const recipe of recipes.value) {
+      try {
+        const reactionResponse = await axios.get(`http://127.0.0.1:5000/reactions?recipe_id=${recipe.id}&user_id=1`);
+        recipe.reactions = reactionResponse.data;
+      } catch (reactionError) {
+        console.error(`Error fetching reactions for recipe ${recipe.id}:`, reactionError);
+      }
+    }
+  }
+  catch (error) {
+    console.error("Error fetching reactions:", error);
   }
 };
 const deleteRecipe = async (id: number) => {
@@ -207,5 +232,33 @@ onMounted(() => {
 .delete-button:hover {
   background-color: #e74c3c;
 }
+
+/* ==================== Reactions ==================== */
+.reactions {
+  display: flex;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+.reaction-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.reaction-item span {
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+.reaction-item img {
+  width: 50px;
+  height: auto;
+  transition: transform 0.2s;
+}
+.reaction-item img:hover {
+  transform: scale(1.1);
+}
+
 
 </style>
