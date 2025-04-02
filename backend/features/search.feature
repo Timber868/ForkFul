@@ -6,7 +6,7 @@ Feature: Search a Recipe by Name
 
     Scenario Outline: Successfully search for a recipe (Normal Flow)
         Given the following recipes exist
-            | recipeName          | posted_date | ingredients                | username | description             | image                   |
+            | name                | posted_date | ingredients                | username | description             | image                   |
             | Chocolate Cake      | 2025-01-01  | Flour, Sugar, Cocoa Powder | Alice    | Rich chocolate flavor   | chocolate_cake.jpg      |
             | Vegan Salad         | 2025-01-02  | Lettuce, Tomato, Cucumber  | Bob      | Fresh and healthy salad | vegan_salad.jpg         |
             | Spaghetti Carbonara | 2025-01-03  | Pasta, Eggs, Bacon         | Charlie  | Creamy and savory pasta | spaghetti_carbonara.png |
@@ -16,7 +16,7 @@ Feature: Search a Recipe by Name
 
     Scenario: Show an error message when no matching recipe is found (Error Flow)
         Given the following recipes exist
-            | recipeName          | posted_date | ingredients                | username | description             | image            |
+            | name                | posted_date | ingredients                | username | description             | image            |
             | Chocolate Cake      | 2025-01-01  | Flour, Sugar, Cocoa Powder | Alice    | Rich chocolate flavor   | chocolate_cake.jpg|
             | Vegan Salad         | 2025-01-02  | Lettuce, Tomato, Cucumber  | Bob      | Fresh and healthy salad | vegan_salad.jpg   |
             | Spaghetti Carbonara | 2025-01-03  | Pasta, Eggs, Bacon         | Charlie  | Creamy and savory pasta | spaghetti_carbonara.png |
@@ -25,7 +25,7 @@ Feature: Search a Recipe by Name
 
     Scenario: Search using a partial recipe name (Alternate Flow)
         Given the following recipes exist
-            | recipeName           | posted_date | ingredients                                          | username | description                    | image                         |
+            | name                 | posted_date | ingredients                                          | username | description                    | image                         |
             | Chocolate Cake       | 2025-01-01  | Flour, Sugar, Cocoa Powder                           | Alice    | Rich chocolate flavor          | chocolate_cake.jpg            |
             | Vegan Salad          | 2025-01-02  | Lettuce, Tomato, Cucumber                            | Bob      | Fresh and healthy salad        | vegan_salad.jpg               |
             | Spaghetti Carbonara  | 2025-01-03  | Pasta, Eggs, Bacon                                   | Charlie  | Creamy and savory pasta        | spaghetti_carbonara.png       |
