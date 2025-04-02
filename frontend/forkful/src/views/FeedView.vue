@@ -3,8 +3,8 @@
     <div class="feed-body">
       <div class="feed">
         <div class="search-bar">
-          <input type="text" v-model="searchQuery" placeholder="Search recipes..." />
-          <button @click="performSearch">Search</button>
+          <input class="searchbox" type="text" v-model="searchQuery" placeholder="Search recipes..." />
+          <button class="searchbutton" @click="performSearch">Search</button>
         </div>
         <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
           <div class="card-header">
@@ -294,6 +294,51 @@ onMounted(() => {
 }
 .reaction-item img:hover {
   transform: scale(1.1);
+}
+
+.search-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  max-width: 800px; /* Adjust this as desired */
+}
+
+.searchbox {
+  flex-grow: 1;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #114538;
+  border-radius: 6px;
+  background-color: #f7faf7;
+  color: #333;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchbox:focus {
+  outline: none;
+  border-color: #5e8d83;
+  box-shadow: 0 0 0 3px rgba(94, 141, 131, 0.3);
+}
+
+.searchbutton {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  background-color: #114538;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.searchbutton:hover {
+  background-color: #145e4b;
+  box-shadow: 0 2px 8px rgba(17, 69, 56, 0.2);
+}
+
+.searchbutton:active {
+  background-color: #0f3a2e;
 }
 
 
