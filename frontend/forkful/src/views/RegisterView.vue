@@ -51,7 +51,7 @@
 
     const handleRegister = async () => {
     try {
-        const response = await axios.post("http://localhost:5001/auth/register", {
+        const response = await axios.post("http://localhost:5000/auth/register", {
             username: username.value,
             password: password.value,
             email: email.value,

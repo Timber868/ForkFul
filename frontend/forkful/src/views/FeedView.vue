@@ -2,6 +2,10 @@
   <section class="feed-container">
     <div class="feed-body">
       <div class="feed">
+        <div class="search-bar">
+          <input type="text" v-model="searchQuery" placeholder="Search recipes..." />
+          <button @click="performSearch">Search</button>
+        </div>
         <div v-for="recipe in recipes" :key="recipe.id" class="recipe-card">
           <div class="card-header">
             <span class="card-title">{{ recipe.name }}</span>
@@ -59,11 +63,43 @@ import { useAuthStore } from "@/stores/auth";
 
 const authStore = useAuthStore();
 
+const searchQuery = ref("");
+
 const recipes = ref<any[]>([]);
+
+const performSearch = async () => {
+  console.log("Searching for:", searchQuery.value);
+  try {
+    const response = await axios.get("http://127.0.0.1:5000/recipes/" + searchQuery.value);
+    recipes.value = response.data;
+    console.log("Recipes fetched:", recipes.value);
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      window.alert("Recipe not found");
+    } else {
+      console.error("Error fetching recipes:", error);
+    }
+  }
+
+  try {
+    for (const recipe of recipes.value) {
+      try {
+        const reactionResponse = await axios.get(
+          `http://127.0.0.1:5000/reactions?recipe_id=${recipe.id}&user_id=1`
+        );
+        recipe.reactions = reactionResponse.data;
+      } catch (reactionError) {
+        console.error(`Error fetching reactions for recipe ${recipe.id}:`, reactionError);
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching reactions:", error);
+  }
+};
 
 const fetchRecipes = async () => {
   try {
-    const response = await axios.get("http://127.0.0.1:5001/recipes");
+    const response = await axios.get("http://127.0.0.1:5000/recipes");
     recipes.value = response.data;
     console.log("Recipes fetched:", recipes.value);
   } catch (error) {
@@ -86,7 +122,7 @@ const fetchRecipes = async () => {
 };
 const deleteRecipe = async (id: number) => {
   try {
-    await axios.delete(`http://127.0.0.1:5001/recipes/${id}`);
+    await axios.delete(`http://127.0.0.1:5000/recipes/${id}`);
     recipes.value = recipes.value.filter(recipe => recipe.id !== id); // Remove deleted recipe from list
     console.log(`Recipe ${id} deleted`);
   } catch (error) {

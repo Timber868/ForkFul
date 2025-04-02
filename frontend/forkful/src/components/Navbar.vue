@@ -25,7 +25,7 @@ const router = useRouter();
 function handleLogout() {
   // If your server expects credentials (cookies) for session management,
   // include `{ withCredentials: true }` in the request config.
-  axios.post('http://localhost:5001/auth/logout', {}, { withCredentials: true })
+  axios.post('http://localhost:5000/auth/logout', {}, { withCredentials: true })
     .then(response => {
       console.log(response.data.message); // 'Logged out successfully.'
 

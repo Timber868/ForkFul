@@ -37,7 +37,7 @@
 
     const handleLogin = async () => {
     try {
-        const response = await axios.post("http://localhost:5001/auth/login", {
+        const response = await axios.post("http://localhost:5000/auth/login", {
             username: username.value,
             password: password.value
         }, {withCredentials: true});

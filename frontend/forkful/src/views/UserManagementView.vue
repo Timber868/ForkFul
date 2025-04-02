@@ -35,7 +35,7 @@ const banning = ref(null);
 
 const fetchUsers = async () => {
   try {
-    const response = await axios.get('http://127.0.0.1:5001/users/');
+    const response = await axios.get('http://127.0.0.1:5000/users/');
     users.value = response.data;
   } catch (err) {
     console.error('Failed to fetch users', err);
@@ -45,7 +45,7 @@ const fetchUsers = async () => {
 const handleBan = async (userId) => {
   try {
     banning.value = userId;
-    await axios.put(`http://127.0.0.1:5001/users/${userId}/ban`);
+    await axios.put(`http://127.0.0.1:5000/users/${userId}/ban`);
     const user = users.value.find(u => u.id === userId);
     if (user) user.status = 'banned';
   } catch (err) {
