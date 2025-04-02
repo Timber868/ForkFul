@@ -57,5 +57,5 @@ python app.py
 
 6. Tests can also be run with:
 ```bash
-pytest -v
+behave
 ```
